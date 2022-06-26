@@ -2,7 +2,7 @@
 
 CustomProxyModel::CustomProxyModel(QObject *parent, QString name, QString votes, QString rating, QString adress,
                                    QString cuisine, QString openHours)
-    :QSortFilterProxyModel{parent}
+        : QSortFilterProxyModel{parent}
 {
     nameRestaurant = name;
     numVotes = votes;
@@ -39,7 +39,8 @@ bool CustomProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &source
     QVariant dataAtIndex5 = sourceModel()->data(idx5); //openHours
     bool isOpenHoursCorrect = openHoursIsCorrect(dataAtIndex5.toString());
 
-    return isNameCorrect && isVotesCorrect && IsRatingCorrect && isAdressCorrect && isCuisineCorrect && isOpenHoursCorrect;
+    return isNameCorrect && isVotesCorrect && IsRatingCorrect && isAdressCorrect && isCuisineCorrect &&
+           isOpenHoursCorrect;
 }
 
 
@@ -83,19 +84,19 @@ bool CustomProxyModel::nameIsCorrect(QString name) const
 {
     if (name == "")
         return true;
-   return nameRestaurant.contains(name);
+    return nameRestaurant.contains(name);
 }
 
 bool CustomProxyModel::votesIsCorrect(QString votes) const
 {
-    if(votes == "")
+    if (votes == "")
         return true;
     return numVotes.contains(votes);
 }
 
 bool CustomProxyModel::ratingIsCorrect(QString rating) const
 {
-    if(rating == "")
+    if (rating == "")
         return true;
     return ratingRestaurant.contains(rating);
 }
@@ -113,6 +114,7 @@ bool CustomProxyModel::cuisineIsCorrect(QString cuisine) const
         return true;
     return cuisineRestaurant.contains(cuisine);
 }
+
 bool CustomProxyModel::openHoursIsCorrect(QString openHours) const
 {
     if (openHours == "")
