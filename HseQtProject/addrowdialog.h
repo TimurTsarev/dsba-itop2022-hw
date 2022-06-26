@@ -3,7 +3,8 @@
 
 #include <QDialog>
 
-namespace Ui {
+namespace Ui
+{
 class AddRowDialog;
 }
 
@@ -13,15 +14,18 @@ class AddRowDialog : public QDialog
 
 public:
     explicit AddRowDialog(QWidget *parent = nullptr);
-    ~AddRowDialog();
-    const QList<QVariant>& getNewRow();
 
-private slots:
-    void saveAddedRow();
+    ~AddRowDialog();
+
+    const QList <QVariant> &getNewRow();
+
+private
+    slots:
+            void saveAddedRow();
 
 private:
     Ui::AddRowDialog *ui;
-    QList<QVariant> newRow;
+    QList <QVariant> newRow;
 };
 
 #endif // ADDROWDIALOG_H
