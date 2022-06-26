@@ -8,7 +8,10 @@
 #include "customproxymodel.h"
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
+namespace Ui
+{
+class MainWindow;
+}
 QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow
@@ -17,34 +20,36 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(QWidget *parent = nullptr);
+
     ~MainWindow();
 
-private slots:
-   void loadFile();
+private
+    slots:
+            void loadFile();
 
-   void on_addRowButton_clicked();
+    void on_addRowButton_clicked();
 
-   void on_saveButton_clicked();
+    void on_saveButton_clicked();
 
-   void on_chooseRestaurant_textChanged(const QString &arg1);
+    void on_chooseRestaurant_textChanged(const QString &arg1);
 
-   void on_deleteButton_clicked();
+    void on_deleteButton_clicked();
 
-   void showAbout();
+    void showAbout();
 
-   void on_chooseRating_textChanged(const QString &arg1);
+    void on_chooseRating_textChanged(const QString &arg1);
 
-   void on_chooseVotes_textChanged(const QString &arg1);
+    void on_chooseVotes_textChanged(const QString &arg1);
 
-   void on_chooseAdress_textChanged(const QString &arg1);
+    void on_chooseAdress_textChanged(const QString &arg1);
 
-   void on_chooseCuisine_textChanged(const QString &arg1);
+    void on_chooseCuisine_textChanged(const QString &arg1);
 
-   void on_chooseOpenHours_textChanged(const QString &arg1);
+    void on_chooseOpenHours_textChanged(const QString &arg1);
 
-   void on_Cost_textChanged(const QString &arg1);
+    void on_Cost_textChanged(const QString &arg1);
 
-   void on_chooseFairRating_textChanged(const QString &arg1);
+    void on_chooseFairRating_textChanged(const QString &arg1);
 
 private:
     Ui::MainWindow *ui;
