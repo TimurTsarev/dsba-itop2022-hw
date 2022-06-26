@@ -3,37 +3,37 @@
 #include <QTextStream>
 
 LoadDataFile::LoadDataFile(QObject *parent)
-    : QAbstractTableModel(parent)
+        : QAbstractTableModel(parent)
 {
 }
 
-void LoadDataFile::fillDataTableFromFile (QString path)
+void LoadDataFile::fillDataTableFromFile(QString path)
 {
     QFile inputFile(path);
     inputFile.open(QFile::ReadOnly | QFile::Text);
     QTextStream inputStream(&inputFile);
 
     QString firstline = inputStream.readLine();
-    for (QString& item : firstline.split(";"))
+    for (QString &item: firstline.split(";"))
     {
         headerList.append(item);
     }
     headerList.append("FairSorting");
 
-    while(!inputStream.atEnd())
+    while (!inputStream.atEnd())
     {
         QString line = inputStream.readLine();
 
         int numVotes = 0;
         double rating = 0;
 
-        QList<QVariant> dataRow;
+        QList <QVariant> dataRow;
         int columnIdx = 0;
-        for(QString& item : line.split(";"))
+        for (QString &item: line.split(";"))
         {
             if (columnIdx == 0
-                    || columnIdx == 3
-                    || columnIdx == 4)
+                || columnIdx == 3
+                || columnIdx == 4)
             {
                 dataRow.append(item.toLower());
             } else if (columnIdx == 1)
@@ -63,7 +63,7 @@ void LoadDataFile::fillDataTableFromFile (QString path)
         }
         double fairSorting = (2.5 * 500 + rating * numVotes) / (numVotes + 500);
         dataRow.append(fairSorting);
-       dataTable.append(dataRow);
+        dataTable.append(dataRow);
     }
     inputFile.close();
 }
@@ -75,13 +75,13 @@ void LoadDataFile::saveDataTableToFile(QString path)
     QTextStream outputStream(&outputFile);
 
     bool first = true;
-    for (QString& item : headerList) {
+    for (QString &item: headerList)
+    {
         if (first)
         {
             outputStream << item;
             first = false;
-        }
-        else
+        } else
         {
             outputStream << ",";
             outputStream << item;
@@ -89,16 +89,16 @@ void LoadDataFile::saveDataTableToFile(QString path)
     }
     outputStream << "\n";
 
-    for (QList<QVariant>& row: dataTable)
+    for (QList <QVariant> &row: dataTable)
     {
         bool first = true;
-        for (QVariant& item : row) {
+        for (QVariant &item: row)
+        {
             if (first)
             {
                 outputStream << item.toString();
                 first = false;
-            }
-            else
+            } else
             {
                 outputStream << ",";
                 outputStream << item.toString();
@@ -121,7 +121,8 @@ QVariant LoadDataFile::headerData(int section, Qt::Orientation orientation, int 
 
 bool LoadDataFile::setHeaderData(int section, Qt::Orientation orientation, const QVariant &value, int role)
 {
-    if (value != headerData(section, orientation, role)) {
+    if (value != headerData(section, orientation, role))
+    {
         emit headerDataChanged(orientation, section, section);
         return true;
     }
@@ -164,14 +165,15 @@ QVariant LoadDataFile::data(const QModelIndex &index, int role) const
 
 bool LoadDataFile::setData(const QModelIndex &index, const QVariant &value, int role)
 {
-    if (data(index, role) != value) {
-            int row = index.row();
-            int col = index.column();
-            dataTable[row][col] = value;
-            emit dataChanged(index, index, {role});
-            return true;
-        }
-        return false;
+    if (data(index, role) != value)
+    {
+        int row = index.row();
+        int col = index.column();
+        dataTable[row][col] = value;
+        emit dataChanged(index, index, {role});
+        return true;
+    }
+    return false;
 }
 
 Qt::ItemFlags LoadDataFile::flags(const QModelIndex &index) const
@@ -179,20 +181,20 @@ Qt::ItemFlags LoadDataFile::flags(const QModelIndex &index) const
     if (!index.isValid())
         return Qt::NoItemFlags;
     return QAbstractItemModel::flags(index) | Qt::ItemIsEditable;
-    }
+}
 
-void LoadDataFile::appendRow(const QList<QVariant> &row)
+void LoadDataFile::appendRow(const QList <QVariant> &row)
 {
-     size_t newRowNumber = rowCount();
-     beginInsertRows(QModelIndex(), newRowNumber, newRowNumber);
-     dataTable.append(row);
-     endInsertRows();
-    }
+    size_t newRowNumber = rowCount();
+    beginInsertRows(QModelIndex(), newRowNumber, newRowNumber);
+    dataTable.append(row);
+    endInsertRows();
+}
 
 
 void LoadDataFile::removeRow(int idx)
 {
-     beginRemoveRows(QModelIndex(), idx, idx);
-     dataTable.removeAt(idx);
-     endRemoveRows();
-    }
+    beginRemoveRows(QModelIndex(), idx, idx);
+    dataTable.removeAt(idx);
+    endRemoveRows();
+}
