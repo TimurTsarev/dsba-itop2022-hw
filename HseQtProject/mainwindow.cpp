@@ -7,8 +7,7 @@
 #include <QSortFilterProxyModel>
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+        : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     this->setWindowTitle("Restaurants");
@@ -76,8 +75,6 @@ void MainWindow::on_saveButton_clicked()
 }
 
 
-
-
 void MainWindow::on_chooseRestaurant_textChanged(const QString &arg1)
 {
     proxyModel->setFilterRegularExpression(QRegularExpression(arg1.toLower()));
@@ -103,7 +100,6 @@ void MainWindow::on_chooseVotes_textChanged(const QString &arg1)
     ui->chooseVotes->setValidator(validator);
     ui->tableView->setModel(proxyModel);
 }
-
 
 
 void MainWindow::on_chooseAdress_textChanged(const QString &arg1)
@@ -141,7 +137,6 @@ void MainWindow::showAbout()
     AboutDialog d;
     d.exec();
 }
-
 
 
 void MainWindow::on_Cost_textChanged(const QString &arg1)
