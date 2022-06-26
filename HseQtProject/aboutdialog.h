@@ -4,7 +4,8 @@
 #include <QDialog>
 #include <QPainter>
 
-namespace Ui {
+namespace Ui
+{
 class AboutDialog;
 }
 
@@ -14,6 +15,7 @@ class AboutDialog : public QDialog
 
 public:
     explicit AboutDialog(QWidget *parent = nullptr);
+
     ~AboutDialog();
 
     virtual void paintEvent(QPaintEvent *event);
