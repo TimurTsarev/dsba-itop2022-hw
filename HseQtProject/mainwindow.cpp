@@ -11,33 +11,24 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Restaurants");
     QObject::connect(ui->loadButton, SIGNAL(clicked()), this, SLOT(loadFile()));
     QObject::connect(ui->actionAbout, SIGNAL(triggered()), this, SLOT(showAbout()));
-    //QObject::connect(ui->addRowButton, SIGNAL(clicked()), this, SLOT(addRowSlot));
-    //QObject::connect(ui->saveButton, SIGNAL(clicked()), this, SLOT(saveButon()));
 
 
     _loadFile = new LoadDataFile(this);
+
     proxyModel = new QSortFilterProxyModel(this);
     proxyModel->setSourceModel(_loadFile);
+
     ui->tableView->setModel(proxyModel);
     ui->tableView->setSortingEnabled(true);
+    ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 
-    proxyModel2 = new QSortFilterProxyModel(this);
-    proxyModel2->setSourceModel(_loadFile);
-    //ui->tableView_2->setModel(proxyModel2);
-
-
-
-    _transposeModel = new QTransposeProxyModel(this);
-    _transposeModel->setSourceModel(_loadFile);
-    ui->tableView_2->setModel(_transposeModel);
-
-//    for(int i = 1; i < _transposeModel->columnCount(); ++i)
-//    {
-//        ui->tableView_2->hideColumn(i);
-//    }
-//    _shownDetailsColumn = 0;
+    ui->splitter_4->setStretchFactor(0, 0);
+    ui->splitter_4->setStretchFactor(1, 0);
+    ui->splitter_4->setStretchFactor(2, 0);
+    ui->splitter_4->setStretchFactor(3, 1);
 
 
 }
@@ -58,14 +49,7 @@ void MainWindow::loadFile()
     _loadFile->fillDataTableFromFile(fileName);
 
     proxyModel->setSourceModel(_loadFile);
-    proxyModel2->setSourceModel(_loadFile);
     ui->tableView->setModel(proxyModel);
-    _transposeModel->setSourceModel(_loadFile);
-    for(int i = 1; i < _transposeModel->columnCount(); ++i)
-    {
-        ui->tableView_2->hideColumn(i);
-    }
-    _shownDetailsColumn = 0;
 
 }
 
@@ -77,8 +61,11 @@ void MainWindow::on_addRowButton_clicked()
     {
         _loadFile->appendRow(newRow.getNewRow());
     }
+    int lastRow = _loadFile->rowCount() - 1;
+    QModelIndex baseIdx = _loadFile->index(lastRow, 0);
+    QModelIndex proxyIdx = proxyModel->mapFromSource(baseIdx);
+    ui->tableView->setCurrentIndex(proxyIdx);
 }
-
 
 void MainWindow::on_saveButton_clicked()
 {
@@ -93,8 +80,52 @@ void MainWindow::on_saveButton_clicked()
 
 void MainWindow::on_chooseRestaurant_textChanged(const QString &arg1)
 {
-    proxyModel2->setFilterRegularExpression(QRegularExpression(arg1));
-    _transposeModel->setSourceModel(proxyModel2);
+    proxyModel->setFilterRegularExpression(QRegularExpression(arg1.toLower()));
+    proxyModel->setFilterKeyColumn(0);
+    ui->tableView->setModel(proxyModel);
+}
+
+void MainWindow::on_chooseRating_textChanged(const QString &arg1)
+{
+    //QValidator *validator = new QDoubleValidator(this);
+    proxyModel->setFilterRegularExpression(QRegularExpression(arg1));
+    proxyModel->setFilterKeyColumn(2);
+    //ui->chooseRating->setValidator(validator);
+    ui->tableView->setModel(proxyModel);
+}
+
+
+void MainWindow::on_chooseVotes_textChanged(const QString &arg1)
+{
+    QValidator *validator = new QIntValidator(this);
+    proxyModel->setFilterRegularExpression(QRegularExpression(arg1));
+    proxyModel->setFilterKeyColumn(1);
+    ui->chooseVotes->setValidator(validator);
+    ui->tableView->setModel(proxyModel);
+}
+
+
+
+void MainWindow::on_chooseAdress_textChanged(const QString &arg1)
+{
+    proxyModel->setFilterRegularExpression(QRegularExpression(arg1.toLower()));
+    proxyModel->setFilterKeyColumn(3);
+    ui->tableView->setModel(proxyModel);
+}
+
+
+void MainWindow::on_chooseCuisine_textChanged(const QString &arg1)
+{
+    proxyModel->setFilterRegularExpression(QRegularExpression(arg1.toLower()));
+    proxyModel->setFilterKeyColumn(4);
+    ui->tableView->setModel(proxyModel);
+}
+
+void MainWindow::on_chooseOpenHours_textChanged(const QString &arg1)
+{
+    proxyModel->setFilterRegularExpression(QRegularExpression(arg1.toLower()));
+    proxyModel->setFilterKeyColumn(6);
+    ui->tableView->setModel(proxyModel);
 }
 
 
@@ -105,9 +136,30 @@ void MainWindow::on_deleteButton_clicked()
     _loadFile->removeRow(idx4.row());
 }
 
-
 void MainWindow::showAbout()
 {
     AboutDialog d;
     d.exec();
 }
+
+
+
+void MainWindow::on_Cost_textChanged(const QString &arg1)
+{
+    QValidator *validator = new QDoubleValidator(this);
+    proxyModel->setFilterRegularExpression(QRegularExpression(arg1.toLower()));
+    proxyModel->setFilterKeyColumn(5);
+    ui->chooseRating->setValidator(validator);
+    ui->tableView->setModel(proxyModel);
+}
+
+
+void MainWindow::on_chooseFairRating_textChanged(const QString &arg1)
+{
+    //QValidator *validator = new QDoubleValidator(this);
+    proxyModel->setFilterRegularExpression(QRegularExpression(arg1.toLower()));
+    proxyModel->setFilterKeyColumn(7);
+    //ui->chooseRating->setValidator(validator);
+    ui->tableView->setModel(proxyModel);
+}
+

@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>140</x>
@@ -30,10 +30,18 @@
      <widget class="QLineEdit" name="NameLineEdit"/>
     </item>
     <item>
-     <widget class="QLineEdit" name="VotesLineEdit"/>
+     <widget class="QSpinBox" name="VotesSpinBox">
+      <property name="maximum">
+       <number>10000000</number>
+      </property>
+     </widget>
     </item>
     <item>
-     <widget class="QLineEdit" name="RatingLineEdit"/>
+     <widget class="QDoubleSpinBox" name="RatingDoubleSpinBox">
+      <property name="maximum">
+       <double>5.000000000000000</double>
+      </property>
+     </widget>
     </item>
     <item>
      <widget class="QLineEdit" name="AddresLineEdit"/>
@@ -42,14 +50,18 @@
      <widget class="QLineEdit" name="CusineLineEdit"/>
     </item>
     <item>
-     <widget class="QLineEdit" name="CostLineEdit"/>
+     <widget class="QDoubleSpinBox" name="CostDoubleSpinBox">
+      <property name="maximum">
+       <double>10000000.000000000000000</double>
+      </property>
+     </widget>
     </item>
     <item>
      <widget class="QLineEdit" name="TimingLineEdit"/>
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>200</x>
@@ -75,12 +87,12 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>60</x>
+     <x>19</x>
      <y>130</y>
-     <width>40</width>
+     <width>101</width>
      <height>331</height>
     </rect>
    </property>

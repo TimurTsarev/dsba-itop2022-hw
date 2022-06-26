@@ -6,26 +6,35 @@
 class CustomProxyModel : public QSortFilterProxyModel
 {
     Q_OBJECT
-
 public:
-    CustomProxyModel(QObject *parent = nullptr);
-
-    double filterMinimumFare() const { return minFare; }
-    void setFilterMinimumFare(double fare);
-
-    double filterMaximumFare() const { return maxFare; }
-    void setFilterMaximumFare(double fare);
+    explicit CustomProxyModel(QObject *parent = nullptr, QString name = "", QString votes = "", QString rating = "", QString adress = "",
+                              QString cuisine = "", QString openHours = "");
+    void setNameOfRestaurant(QString name);
+    void setNumberVotes(QString num);
+    void setRating(QString rating);
+    void setAdress(QString adress);
+    void setCuisine(QString cuisine);
+    void setOpenHours(QString openHours);
+    bool nameIsCorrect(QString name) const;
+    bool votesIsCorrect(QString votes) const;
+    bool ratingIsCorrect(QString rating) const;
+    bool adressIsCorrect(QString adress) const;
+    bool cuisineIsCorrect(QString cuisine) const;
+    bool openHoursIsCorrect(QString openHours) const;
 
 protected:
     bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override;
-//    bool lessThan(const QModelIndex &left, const QModelIndex &right) const override;
+
+signals:
 
 private:
-    bool fareInRange(double fare) const;
+    QString nameRestaurant;
+    QString numVotes;
+    QString ratingRestaurant;
+    QString adressRestaurant;
+    QString cuisineRestaurant;
+    QString openHoursRestaurant;
 
-    double minFare;
-    double maxFare;
 };
-
 
 #endif // CUSTOMPROXYMODEL_H

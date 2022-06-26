@@ -16,12 +16,16 @@ AddRowDialog::AddRowDialog(QWidget *parent) :
 void AddRowDialog::saveAddedRow()
 {
     newRow.push_back(ui->NameLineEdit->text());
-    newRow.push_back(ui->VotesLineEdit->text().toInt());
-    newRow.push_back(ui->RatingLineEdit->text().toDouble());
+    newRow.push_back(ui->VotesSpinBox->value());
+    newRow.push_back(ui->RatingDoubleSpinBox->value());
     newRow.push_back(ui->AddresLineEdit->text());
     newRow.push_back(ui->CusineLineEdit->text());
-    newRow.push_back(ui->CostLineEdit->text().toDouble());
+    newRow.push_back(ui->CostDoubleSpinBox->value());
     newRow.push_back(ui->TimingLineEdit->text());
+    double votes = newRow[1].toDouble();
+    double rating = newRow[2].toDouble();
+    double fairSorting = (2.5 * 500 + rating * votes) / (votes + 500);
+    newRow.push_back(fairSorting);
 
     accept();
     }

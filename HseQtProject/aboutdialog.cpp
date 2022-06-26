@@ -15,6 +15,8 @@ void AboutDialog::paintEvent(QPaintEvent *event)
     QPen linePen(Qt::black);
     linePen.setWidth(3);
 
+    painter.scale(width() / 611.0, height() / 440.0);
+
     painter.setPen(linePen);
     painter.drawEllipse(90, 110, 125, 125);
     painter.drawEllipse(90, 140, 125, 125);

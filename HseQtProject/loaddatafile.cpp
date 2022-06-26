@@ -31,12 +31,11 @@ void LoadDataFile::fillDataTableFromFile (QString path)
         int columnIdx = 0;
         for(QString& item : line.split(";"))
         {
-            //dataRow.append(item);
             if (columnIdx == 0
                     || columnIdx == 3
                     || columnIdx == 4)
             {
-                dataRow.append(item);
+                dataRow.append(item.toLower());
             } else if (columnIdx == 1)
             {
                 QStringList a = item.split(" ");
@@ -58,13 +57,13 @@ void LoadDataFile::fillDataTableFromFile (QString path)
             } else if (columnIdx == 6)
             {
                 item.replace("вЂ“", "-");
-                dataRow.append(item);
+                dataRow.append(item.toLower());
             }
             ++columnIdx;
         }
         double fairSorting = (2.5 * 500 + rating * numVotes) / (numVotes + 500);
         dataRow.append(fairSorting);
-        dataTable.append(dataRow);
+       dataTable.append(dataRow);
     }
     inputFile.close();
 }

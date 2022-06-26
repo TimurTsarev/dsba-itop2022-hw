@@ -5,6 +5,7 @@
 #include "loaddatafile.h"
 #include <qsortfilterproxymodel.h>
 #include <QTransposeProxyModel>
+#include "customproxymodel.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -31,12 +32,24 @@ private slots:
 
    void showAbout();
 
+   void on_chooseRating_textChanged(const QString &arg1);
+
+   void on_chooseVotes_textChanged(const QString &arg1);
+
+   void on_chooseAdress_textChanged(const QString &arg1);
+
+   void on_chooseCuisine_textChanged(const QString &arg1);
+
+   void on_chooseOpenHours_textChanged(const QString &arg1);
+
+   void on_Cost_textChanged(const QString &arg1);
+
+   void on_chooseFairRating_textChanged(const QString &arg1);
+
 private:
     Ui::MainWindow *ui;
     LoadDataFile *_loadFile;
     QSortFilterProxyModel *proxyModel;
-    QSortFilterProxyModel *proxyModel2;
-    QTransposeProxyModel *_transposeModel;
     size_t _shownDetailsColumn;
 };
 #endif // MAINWINDOW_H
